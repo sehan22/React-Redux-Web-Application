@@ -1,4 +1,4 @@
-import {FETCH_BUTTON_CLICKED} from './types';
+import {FETCH_BUTTON_CLICKED, SELECT_POST} from './types';
 
 //action creator
 export const fetchPosts = () => {
@@ -42,5 +42,12 @@ export const fetchPosts = () => {
                 "body": "harum non quasi et ratione\ntempore iure ex voluptates in ratione\nharum architecto fugit inventore cupiditate\nvoluptates magni quo et"
             }
         ]
+    }
+}
+
+export const selectPost=(post) => {
+    return {
+        type: SELECT_POST,
+        payload: post
     }
 }
