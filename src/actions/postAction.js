@@ -1,7 +1,8 @@
 import {FETCH_BUTTON_CLICKED, SELECT_POST} from './types';
+import axios from "axios";
 
 //action creator
-export const fetchPosts = () => {
+/*export const fetchPosts = () => {
     //action
     return {
         type: `${FETCH_BUTTON_CLICKED}`,
@@ -43,9 +44,33 @@ export const fetchPosts = () => {
             }
         ]
     }
-}
+}*/
 
-export const selectPost=(post) => {
+/*export function fetchPosts() {
+    return function (dispatch) {
+        axios.get("https://jsonplaceholder.typicode.com/posts/1/comments").then(res => {
+            dispatch({
+                type: SELECT_POST,
+                payload: res.data
+            })
+        })
+    }
+}*/
+
+export const fetchPosts = () => dispatch => {
+    axios.get("https://jsonplaceholder.typicode.com/posts/1/comments")
+        .then(res => {
+            dispatch({
+                type: FETCH_BUTTON_CLICKED,
+                payload: res.data
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching posts:', error);
+        });
+};
+
+export const selectPost = (post) => {
     return {
         type: SELECT_POST,
         payload: post

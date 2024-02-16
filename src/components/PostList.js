@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {selectPost} from "../actions/postAction";
+import async from "async";
 
 
 class PostList extends Component {
-
 
     createListItems() {
         return this.props.allPost.map((post) => {
