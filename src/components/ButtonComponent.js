@@ -1,9 +1,24 @@
 import React from 'react';
+import {fetchPosts} from '../actions/postAction'
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
 
-function ButtonComponent(props) {
-    return (
-        <button type="button" className="px-4 py-2 rounded-lg bg-cyan-600 text-white">Click me</button>
-    );
+
+class ButtonComponent extends React.Component {
+    render() {
+        return (
+            <button
+                onClick={() => {
+                    this.props.fetchPosts()
+                }}
+                type="button"
+                className="px-4 py-2 rounded-lg bg-cyan-600 text-white">Click me</button>
+        );
+    }
 }
 
-export default ButtonComponent;
+function matchDispatchToProps (dispatch) {
+    return bindActionCreators({fetchPosts: fetchPosts}, dispatch)
+}
+
+export default connect(null, matchDispatchToProps)(ButtonComponent);
