@@ -1,49 +1,42 @@
-import React, {Component} from 'react';
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-import {selectPost} from "../actions/postAction";
-import async from "async";
+import React from 'react';
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { selectPost } from "../actions/postAction";
 
+function PostList(props) {
+    const { allPost, selectPost } = props;
 
-class PostList extends Component {
-
-    createListItems() {
-        return this.props.allPost.map((post) => {
-            console.log(this.props.allPost)
-            return (
-                <li onClick={() => this.props.selectPost(post)}
-                    key={post.id}
-                    className="flex justify-between items-center w-[600px] gap-5 pb-3">
-                    <div className="flex justify-center items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-white"></div>
-                        <h1>{post.name}</h1>
-                    </div>
-                    <h1>{post.email}</h1>
-                </li>
-            )
-        })
+    function createListItems() {
+        return allPost.map((post) => (
+            <li onClick={() => selectPost(post)} key={post.id} className="flex justify-between items-center w-[600px] gap-5 pb-3">
+                <div className="flex justify-center items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-white"></div>
+                    <h1>{post.name}</h1>
+                </div>
+                <h1>{post.email}</h1>
+            </li>
+        ));
     }
 
-    render() {
-        if (!this.props.allPost) {
-            return (<h2>Click the Button first!</h2>)
-        }
-        return (
-            <ul>
-                {this.createListItems()}
-            </ul>
-        )
+    if (!allPost) {
+        return (<h2>Click the Button first!</h2>);
     }
+
+    return (
+        <ul>
+            {createListItems()}
+        </ul>
+    );
 }
 
 function mapStateToProps(state) {
     return {
         allPost: state.allPost
-    }
+    };
 }
 
-function matchDispatchToProps(dispatch) {
-    return bindActionCreators({selectPost: selectPost}, dispatch);
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ selectPost }, dispatch);
 }
 
-export default connect(mapStateToProps, matchDispatchToProps)(PostList);
+export default connect(mapStateToProps, mapDispatchToProps)(PostList);
